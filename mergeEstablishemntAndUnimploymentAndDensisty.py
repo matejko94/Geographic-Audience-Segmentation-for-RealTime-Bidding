@@ -35,10 +35,7 @@ for i in range(0,len(dataDensisty)):
 
 for i in range(0,len(dataPopulationData)):
     splitDataPopulation=dataPopulationData[i].split(',');
-    dictPopulation[int(splitDataPopulation[0])]=[splitDataPopulation[1],splitDataPopulation[2],splitDataPopulation[3],splitDataPopulation[4],
-                                                 splitDataPopulation[5],splitDataPopulation[6],splitDataPopulation[7],splitDataPopulation[8],
-                                                 splitDataPopulation[9],splitDataPopulation[10],splitDataPopulation[11],splitDataPopulation[12],
-                                                 splitDataPopulation[13],splitDataPopulation[14]]
+    dictPopulation[int(splitDataPopulation[0])]=[splitDataPopulation[1:14]]
 
 
 
@@ -71,20 +68,8 @@ for key,values in dictEstablishment.iteritems():
         # 2 stvar unimploymont
         finalTemp.append(float(listDensisty[2]));
         #3
-        finalTemp.append(float(listPopulation[0]));
-        finalTemp.append(float(listPopulation[1]));
-        finalTemp.append(float(listPopulation[2]));
-        finalTemp.append(float(listPopulation[3]));
-        finalTemp.append(float(listPopulation[4]));
-        finalTemp.append(float(listPopulation[5]));
-        finalTemp.append(float(listPopulation[6]));
-        finalTemp.append(float(listPopulation[7]));
-        finalTemp.append(float(listPopulation[8]));
-        finalTemp.append(float(listPopulation[9]));
-        finalTemp.append(float(listPopulation[10]));
-        finalTemp.append(float(listPopulation[11]));
-        finalTemp.append(float(listPopulation[12]));
-        finalTemp.append(float(listPopulation[13]));
+        for i in range(0,13):
+          finalTemp.append(float(listPopulation[i]));
        # finalTemp.append(float(listPopulation[14]));
        # print values
         finalTemp.append(float(listUnemplyment[0]));

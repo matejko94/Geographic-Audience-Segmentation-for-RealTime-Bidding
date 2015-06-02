@@ -89,16 +89,6 @@ print(st)
 print(len(final))
 print(len(final[0]))
 print(len(final[len(final)-1]))
-'''
-estimators = {'k_means': KMeans(n_clusters=25)}
-
-for name, est in estimators.items():
-    est.fit(final)
-    labels = est.labels_
-
-labels.T
-'''
-
 
 with open('zipFinalVersion.csv', 'w') as csvfile:
     writer = csv.writer(csvfile,delimiter=',', lineterminator='\n')

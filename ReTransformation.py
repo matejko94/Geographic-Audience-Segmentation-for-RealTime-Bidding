@@ -13,16 +13,16 @@ def isInt(value):
     return True
   except ValueError:
     return False
-data = [line.strip() for line in open('training_set.tsv')]
+data = [line.strip() for line in open('trainingData.csv')]
 pod=[];
 listData=[];
 y=[];
 final=[]
 st=0;
 for i in range(0,len(data)):
-    splitData=data[i].split('\t' );
-    a=str(splitData[len(splitData)-1])
-    final.append(splitData[:5]+[a.strip(',')])
+    #splitData=data[i].split('\t' );
+    #a=str(splitData[len(splitData)-1])
+    final.append(data[i])
 
     if st==39000:
             break;
@@ -38,12 +38,12 @@ with open('testDomain93.csv', 'w') as csvfile:
 '''
 
 for value in final:
-    for v in value:
+   # for v in value:
 
-        f.write(str(v)+"\t");
+    f.write(str(value));
     #f.write(str(labels[i])+", ");
     f.write("\n");
-    i=i+1
+    #i=i+1
 
 
 

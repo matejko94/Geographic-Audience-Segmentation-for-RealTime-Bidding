@@ -17,10 +17,14 @@ def isFloat(value):
   except ValueError:
     return False
 
+import csv
+
 #dataMergeMini.txt
 #dataTraining = [line.strip() for line in open('dataMergeMini.txt')]
 dataTraining = [line.strip() for line in open('training_set.tsv')]
 dataAllZip = [line.strip() for line in open('discreditiongZipAtributes.csv')]
+dataTest=[line.strip() for line in open('test_set.tsv')]
+
 #zipCodeClustering
 #dataAllZip = [line.strip() for line in open('zipCodeClustering.csv')]
 numberOfClusters=25;
@@ -28,7 +32,8 @@ dictTraining={};
 
 setDomain=set()
 setAdvartisment=set()
-
+dataSt=0;
+arrayTestData=[]
 arrayTrainData=[]
 #read trening data and add elements in arrayDomain and setDomain
 for i in range(0,len(dataTraining)):
@@ -40,10 +45,11 @@ for i in range(0,len(dataTraining)):
         if isInt(splitDataTemp[0]) and isInt(splitDataTemp[1]) and isInt(splitDataTemp[2]):
             arrayTrainData.append([int(splitDataTemp[0]),int(splitDataTemp[1]),int(splitDataTemp[2]),splitDataTemp[3],splitDataTemp[4]])
     else:
+      dataSt=dataSt+1
      #  arrayTrainData.append([0,0,0,0,0])
-      print splitDataTemp
+    #  print(splitDataTemp)
 
-
+print(dataSt)
 #read all data and add in dictionary all zips
 dictMergeData={}
 for data in dataAllZip:
@@ -69,7 +75,6 @@ for domain in arrayTrainData:
 #    print i
 
 
-
 dictDomainCount1={}
 dictDomainCount0={}
 for set in setDomain:
@@ -81,6 +86,7 @@ for set in setAdvartisment:
     dictAdvartismentCount0[int(set)]=[0]*numberOfClusters
     dictAdvartismentCount1[int(set)]=[0]*numberOfClusters
 #print setDomain
+
 
 
 
@@ -128,36 +134,97 @@ print "dictDomain c1"
 print dictDomainCount1
 '''
 
+import json
+
+text_file = open("dictDomainCount0.txt", "w")
+text_file.write(json.dumps(dictDomainCount0))
+text_file.close()
+
+text_file = open("dictDomainCount1.txt", "w")
+text_file.write(json.dumps(dictDomainCount1))
+text_file.close()
+
+text_file = open("dictAdvartismentCount0.txt", "w")
+text_file.write(json.dumps(dictAdvartismentCount0))
+text_file.close()
+
+text_file = open("dictAdvartismentCount1.txt", "w")
+text_file.write(json.dumps(dictAdvartismentCount1))
+text_file.close()
+
+text_file = open("dictMergeData.txt", "w")
+text_file.write(json.dumps(dictMergeData))
+text_file.close()
+
+
+
+ist1=0
+ist2=0
+ist3=0
+ist4=0
+ist5=0
+ist6=0
+ist7=0
 
 arrayMergeFinalData=[]
 i=0
-for domain in arrayMergeData:
+for d in dataTest:
+    splitDataTemp=d.split('\t');
+    if len(splitDataTemp)==4 and isInt(splitDataTemp[0])and isInt(splitDataTemp[1]):
+        if int(splitDataTemp[1]) in dictMergeData: #glavni z vsemi zip kodami
+            domain=splitDataTemp+dictMergeData[int(splitDataTemp[1])]
+            if domain[2] in dictDomainCount0:
+                arrayDomainCount1=dictDomainCount1[domain[2]]
+                arrayDomainCount0=dictDomainCount0[domain[2]]
+            else:
+                arrayDomainCount0=[0]*26
+                arrayDomainCount1=[0]*26
+                ist1=ist1+1
 
-    arrayDomainCount1=dictDomainCount1[domain[3]]
-    arrayDomainCount0=dictDomainCount0[domain[3]]
+            if int(domain[0]) in dictAdvartismentCount0:
+                arrayAdvartismentCount0=dictAdvartismentCount0[int(domain[0])]
+                arrayAdvartismentCount1=dictAdvartismentCount1[int(domain[0])]
+            else:
+                arrayAdvartismentCount0=[0]*26
+                arrayAdvartismentCount1=[0]*26
+                ist2=ist2+1
+            tempArray=domain;
 
-    arrayAdvartismentCount0=dictAdvartismentCount0[domain[1]]
-    arrayAdvartismentCount1=dictAdvartismentCount1[domain[1]]
-    tempArray=domain;
 
-    probabilityClickAdvartisment=arrayAdvartismentCount1[0]*1.0/arrayAdvartismentCount0[0];
-    if arrayAdvartismentCount0[int(domain[-1])]!=0:
-        probabilityClickRegion1=arrayAdvartismentCount1[int(domain[-1])]*1.0/arrayAdvartismentCount0[int(domain[-1])]
-    #    print str(probabilityClickRegion1)+' '+str(arrayAdvartismentCount1[int(domain[-1])])+' '+str(arrayAdvartismentCount0[int(domain[-1])])
+            if arrayAdvartismentCount0[0]!=0:
+                probabilityClickAdvartisment=arrayAdvartismentCount1[0]*1.0/arrayAdvartismentCount0[0];
+            else:
+                probabilityClickAdvartisment=0
+                ist3=ist3+1
+            if arrayAdvartismentCount0[int(domain[-1])]!=0:
+                probabilityClickRegion1=arrayAdvartismentCount1[int(domain[-1])]*1.0/arrayAdvartismentCount0[int(domain[-1])]
+            else:
+                probabilityClickRegion1=0
+                ist4=ist4+1
+
+
+            if arrayDomainCount0[0]!=0:
+                probabilityClickLink=arrayDomainCount1[0]*1.0/arrayDomainCount0[0]
+            else:
+                probabilityClickLink=0
+                ist5=ist5+1
+
+            if arrayDomainCount0[int(domain[-1])]!=0:
+                probabilityClickRegion2=arrayDomainCount1[int('%d'%domain[-1])]*1.0/arrayDomainCount0[int(domain[-1])]
+            else:
+                probabilityClickRegion2=0
+                ist6=ist6+1
+            arrayMergeFinalData.append([probabilityClickAdvartisment,probabilityClickRegion1,probabilityClickLink,probabilityClickRegion2]+domain[4:len(domain)-1])#+[domain[0]])
+
+        else:
+            arrayMergeFinalData.append([0]*33)
     else:
+        arrayMergeFinalData.append([0]*33)
+        #print(splitDataTemp)
+        ist7=ist7+1
 
-        probabilityClickRegion1=arrayAdvartismentCount1[0]
-        #print int('%d'%float(domain[-1]))
-    #    print probabilityClickRegion1+' '+arrayAdvartismentCount1[int(domain[-1])]+' '+arrayAdvartismentCount0[int(domain[-1])]
-
-
-    probabilityClickLink=arrayDomainCount1[0]*1.0/arrayDomainCount0[0]
-    probabilityClickRegion2=arrayDomainCount1[int('%d'%domain[-1])]*1.0/arrayDomainCount0[int(domain[-1])]
-#    arrayMergeFinalData.append([probabilityClickAdvartisment,probabilityClickRegion1,probabilityClickLink,probabilityClickRegion2]+domain[1:len(domain)-1]+[domain[0]])
-    arrayMergeFinalData.append([probabilityClickAdvartisment,probabilityClickRegion1,probabilityClickLink,probabilityClickRegion2]+domain[5:len(domain)-1]+[domain[0]])
-
-
-
-with open('trainingData.csv', 'w') as csvfile:
+print(str(ist1)+" "+str(ist2)+" "+str(ist3)+" "+str(ist4)+" "+str(ist5)+" "+str(ist6))
+print(str(ist7))
+with open('testData.csv', 'w') as csvfile:
     writer = csv.writer(csvfile,delimiter=';', lineterminator='\n')
     writer.writerows( arrayMergeFinalData)

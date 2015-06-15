@@ -28,21 +28,8 @@ from sklearn.utils import shuffle
 from sklearn.metrics import roc_curve, auc
 
 random_state = np.random.RandomState(0)
-data = [line.strip() for line in open('trainingData.csv')]
-dataTest = [line.strip() for line in open('testData.csv')]
-X_testData=[]
-for i in range(0,len(dataTest)):
-    splitData=data[i].split(';' );
-    tempPod=[];
-    #for j in range(0,len(splitData)-1):
-    for j in [0,1,2,3,6,10]:
-        if isFloat(splitData[j]):
-            tempPod.append(float(splitData[j]));
-        elif isInt(splitData[j]):
-            tempPod.append(int(splitData[j]));
-        else:
-           print(splitData[j])
-    X_testData.append(tempPod)
+data = [line.strip() for line in open('Book12.csv')]
+
 
 pod=[];
 listData=[];
@@ -84,13 +71,6 @@ print(len(X_train))
 print(len(y_train))
 probas = classifier.fit(X_train, y_train).predict_proba(X_test)
 
-Z=classifier.predict_proba(X_testData)
-sez=[]
-f = open('dataTest.txt','w')
-for value in Z:
-    f.write(str(value[1])+"\n");
-
-f.close();
 
 
 

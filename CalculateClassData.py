@@ -1,7 +1,7 @@
 __author__ = 'matejs'
 from collections import Counter
 import csv
-
+#calculate domain and other thinks
 def isInt(value):
   try:
     int(value)

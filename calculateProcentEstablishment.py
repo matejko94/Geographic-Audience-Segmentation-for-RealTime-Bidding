@@ -5,7 +5,7 @@ def isFloat(value):
     return True
   except ValueError:
     return False
-
+#Izracunamo procente, raznih podatkov, z tem naj bi pridobili na testnih podatkih
 data = [line.strip() for line in open('dataEstablishmentNumber2.txt')]
 pod=[];
 listData=[];

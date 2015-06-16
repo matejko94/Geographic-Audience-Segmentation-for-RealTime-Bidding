@@ -2,6 +2,7 @@ __author__ = 'matejs'
 __author__ = 'matejs'
 print(__doc__)
 from sklearn import preprocessing
+#SVM
 def isFloat(value):
   try:
     float(value)
@@ -14,9 +15,7 @@ def isInt(value):
     return True
   except ValueError:
     return False
-# Code source: Gal Varoquaux
-# Modified for documentation by Jaques Grobler
-# License: BSD 3 clause
+
 
 
 import numpy as np

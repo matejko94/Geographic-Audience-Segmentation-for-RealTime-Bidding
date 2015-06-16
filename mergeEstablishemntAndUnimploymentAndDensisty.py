@@ -2,7 +2,7 @@ __author__ = 'matejs'
 
 import csv
 from sklearn.cluster import KMeans
-#Vse podatke dodam v eno množico
+#Vse podatke dzdruzim po zip kodah. Tukaj pase vec tipov podatkov.
 def isFloat(value):
   try:
     float(value)

@@ -4,6 +4,8 @@ import csv
 import json
 import statistics
 
+#pregled in predstavitev podatkov za boljso predstavljanje
+
 def reparseKey(dict):
     dictP={};
     for key,value in dict.items():

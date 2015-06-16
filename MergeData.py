@@ -2,6 +2,7 @@ __author__ = 'matejs'
 __author__ = 'matejs'
 from collections import Counter
 import csv
+# zdruzevanje podatkov, med ucnimi, tesnimi podatki in pa vsemi zip kodami
 dataTraining = [line.strip() for line in open('domain.csv')]
 dataAllCodeMerge = [line.strip() for line in open('mergeData.csv')]
 

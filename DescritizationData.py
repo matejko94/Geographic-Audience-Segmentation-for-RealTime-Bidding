@@ -15,7 +15,7 @@ def isFloat(value):
   except ValueError:
     return False
 
-
+#Diskretizacija podatkov itd
 
 dataPopulationData =[line.strip() for line in open('2010CensusPopulationData.csv')]
 dictPopulation={}

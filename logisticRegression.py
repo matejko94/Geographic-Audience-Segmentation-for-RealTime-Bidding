@@ -1,4 +1,6 @@
 __author__ = 'matejs'
+
+#logistična regresija
 print(__doc__)
 from sklearn import preprocessing
 import numpy as np

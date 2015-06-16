@@ -1,7 +1,7 @@
 __author__ = 'matejs'
 from collections import Counter
 import csv
-
+# nadomescanje manjkajocih vrednosti, kjer manjkajo vrednosti. 
 def isInt(value):
   try:
     int(value)
@@ -19,8 +19,6 @@ def isFloat(value):
 
 import csv
 
-#dataMergeMini.txt
-#dataTraining = [line.strip() for line in open('dataMergeMini.txt')]
 dataTraining = [line.strip() for line in open('training_set.tsv')]
 dataAllZip = [line.strip() for line in open('discreditiongZipAtributes.csv')]
 dataTest=[line.strip() for line in open('test_set.tsv')]
@@ -46,8 +44,7 @@ for i in range(0,len(dataTraining)):
             arrayTrainData.append([int(splitDataTemp[0]),int(splitDataTemp[1]),int(splitDataTemp[2]),splitDataTemp[3],splitDataTemp[4]])
     else:
       dataSt=dataSt+1
-     #  arrayTrainData.append([0,0,0,0,0])
-    #  print(splitDataTemp)
+
 
 print(dataSt)
 #read all data and add in dictionary all zips

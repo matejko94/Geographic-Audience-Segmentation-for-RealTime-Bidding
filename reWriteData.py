@@ -1,7 +1,6 @@
 __author__ = 'matejs'
-'''
-Testni Namenii
-'''
+
+#za testne potrebe je bilo potrebno zmanjsati mnozico, podatkov da vse dela brezhibno v orangu
 
 def isInt(value):
   try:
